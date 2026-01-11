@@ -15,8 +15,6 @@ A custom Yocto-based Linux distribution for the Raspberry Pi 5 for future emulat
     pipx install kas
     ```
 ## Build image
-
-    ```bash
+    bash
     # Build the main image
     kas build kas-project.yml
-    ```
