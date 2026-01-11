@@ -1,8 +1,5 @@
 # Ignore the massive build folder
-build/tmp/
-build/sstate-cache/
-build/downloads/
-build/cache/
+/build/
 
 # Ignore kas layers folder
 /layers/
