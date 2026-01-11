@@ -1,0 +1,20 @@
+# Ignore the massive build folder
+build/tmp/
+build/sstate-cache/
+build/downloads/
+build/cache/
+
+# Ignore kas layers folder
+/layers/
+
+# Ignore shared cache and downloads for kas build
+/downloads/
+/sstate-cache/
+
+# Ignore BitBake's execution logs
+bitbake.lock
+pseudo/
+
+#Ignore vscode folders
+.vscode
+.vscode-server/

@@ -1,0 +1,20 @@
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  /home/faris/poky-rpi/meta \
+  /home/faris/poky-rpi/meta-poky \
+  /home/faris/poky-rpi/meta-yocto-bsp \
+  /home/faris/poky-rpi/meta-raspberrypi \
+  /home/faris/poky-rpi/meta-openembedded/meta-oe \
+  /home/faris/poky-rpi/meta-openembedded/meta-python \
+  /home/faris/poky-rpi/meta-openembedded/meta-networking \
+  /home/faris/poky-rpi/meta-openembedded/meta-multimedia \
+  /home/faris/poky-rpi/meta-qt5 \
+  /home/faris/poky-rpi/meta-retro \
+  /home/faris/poky-rpi/meta-my-retro \
+  "

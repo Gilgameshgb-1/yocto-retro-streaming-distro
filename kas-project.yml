@@ -1,0 +1,66 @@
+header:
+  version: 14
+
+machine: raspberrypi5
+distro: my-retro-os
+target: my-retro-image
+
+repos:
+  meta-my-retro:
+    path: meta-my-retro
+
+  poky:
+    url: "git://git.yoctoproject.org/poky"
+    branch: "scarthgap"
+    path: layers/poky
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
+  meta-openembedded:
+    url: "git@github.com:openembedded/meta-openembedded.git"
+    branch: "scarthgap"
+    path: layers/meta-openembedded
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+      meta-multimedia:
+
+  meta-raspberrypi:
+    url: "git@github.com:agherzan/meta-raspberrypi.git"
+    branch: "scarthgap"
+    path: layers/meta-raspberrypi
+
+  meta-qt5:
+    url: "git@github.com:meta-qt5/meta-qt5.git"
+    branch: "scarthgap"
+    path: layers/meta-qt5    
+
+  meta-retro:
+    url: "git@github.com:dev-0x7C6/meta-retro.git"
+    branch: "scarthgap"
+    path: layers/meta-retro    
+
+local_conf_header:
+  retro-settings: |
+    DL_DIR = "${TOPDIR}/../downloads"
+    SSTATE_DIR = "${TOPDIR}/../sstate-cache"
+    # Use cache from previous project, in downloads and sstate-cache folders
+    # Now build folder deletes and rebuilds should be faster
+    CONF_VERSION = "2"
+    PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
+    USER_CLASSES ?= "buildstats"
+    PATCHRESOLVE = "noop"
+    LICENSE_FLAGS_ACCEPTED = "synaptics-killswitch commercial"
+    # Disk monitoring
+    BB_DISKMON_DIRS ??= "\
+        STOPTASKS,${TMPDIR},1G,100K \
+        STOPTASKS,${DL_DIR},1G,100K \
+        STOPTASKS,${SSTATE_DIR},1G,100K \
+        STOPTASKS,/tmp,100M,100K \
+        HALT,${TMPDIR},100M,1K \
+        HALT,${DL_DIR},100M,1K \
+        HALT,${SSTATE_DIR},100M,1K \
+        HALT,/tmp,10M,1K"
