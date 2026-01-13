@@ -57,6 +57,18 @@ local_conf_header:
     USER_CLASSES ?= "buildstats"
     PATCHRESOLVE = "noop"
     LICENSE_FLAGS_ACCEPTED = "synaptics-killswitch commercial"
+
+    # Enabling audio on pi fw
+    ENABLE_AUDIO = "1"
+    HDMI_FORCE_EDID_AUDIO = "1"
+
+    RPI_EXTRA_CONFIG = " \n \
+        dtparam=audio=on \n \
+        hdmi_drive=2 \n \
+        hdmi_force_hotplug=1 \n \
+        config_hdmi_boost=4 \n \
+        "
+
     # Disk monitoring
     BB_DISKMON_DIRS ??= "\
         STOPTASKS,${TMPDIR},1G,100K \

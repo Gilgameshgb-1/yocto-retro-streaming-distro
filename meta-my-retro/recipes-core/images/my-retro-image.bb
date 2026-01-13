@@ -10,4 +10,6 @@ IMAGE_INSTALL += " \
     retroarch \
     mgba-libretro \
     custom-roms \
+    alsa-utils \
+    alsa-plugins \
 "
