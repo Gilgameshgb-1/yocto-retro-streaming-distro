@@ -18,6 +18,7 @@ A custom Yocto-based Linux distribution for the Raspberry Pi 5 for future emulat
     kas build kas-project.yml
 
 ## Running emu
-Currently you can run emu by using this command (also you need to copy your ROM files)
+Currently you can run emu by using this command (also you need to copy your ROM files). Make sure to login as root since debug is enabled.
 
-    retroarch -L mgba_libretro.so /home/root/games/your_game.gba
+    cd /usr/
+    retroarch -L mgba_libretro.so games/your_game.gba

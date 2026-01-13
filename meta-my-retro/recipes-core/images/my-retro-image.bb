@@ -9,4 +9,5 @@ IMAGE_INSTALL += " \
     vsftpd \
     retroarch \
     mgba-libretro \
+    custom-roms \
 "

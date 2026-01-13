@@ -9,6 +9,9 @@ repos:
   meta-my-retro:
     path: meta-my-retro
 
+  meta-custom-games:
+    path: meta-custom-games
+
   poky:
     url: "git://git.yoctoproject.org/poky"
     branch: "scarthgap"
