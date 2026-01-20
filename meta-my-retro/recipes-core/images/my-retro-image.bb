@@ -12,4 +12,9 @@ IMAGE_INSTALL += " \
     custom-roms \
     alsa-utils \
     alsa-plugins \
+    python3-flask \
+    python3-modules \
+    retro-web-ui \
+    bash \
+    procps \
 "
