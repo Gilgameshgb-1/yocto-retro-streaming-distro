@@ -17,4 +17,10 @@ IMAGE_INSTALL += " \
     retro-web-ui \
     bash \
     procps \
+    bluez5 \
+    pi-bluetooth \
+    linux-firmware-rpidistro-bcm43430\
+    usbutils \
+    retroarch-autoconfig \
+    auto-pair \
 "

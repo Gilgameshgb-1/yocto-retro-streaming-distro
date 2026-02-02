@@ -17,6 +17,14 @@ A custom Yocto-based Linux distribution for the Raspberry Pi 5 for future emulat
 ## Build image
     kas build kas-project.yml
 
+## Binding dualsense
+You can bind your PS5 Dualsense if you change the MAC adress in the .py file: /usr/bin/auto-pair.py
+
+    python3 /usr/bin/auto-pair.py
+
+## Webserver
+Webserver is currently enabled on your local network if connected via router with PI. This will change in the future to instead be a wifi-transmitter.
+
 ## Running emu
 Currently you can run emu by using this command (also you need to copy your ROM files). Make sure to login as root since debug is enabled.
 

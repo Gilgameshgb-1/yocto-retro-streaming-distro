@@ -67,6 +67,7 @@ local_conf_header:
         hdmi_drive=2 \n \
         hdmi_force_hotplug=1 \n \
         config_hdmi_boost=4 \n \
+        dtparam=krnbt=on \n \
         "
 
     # Systemd initialization

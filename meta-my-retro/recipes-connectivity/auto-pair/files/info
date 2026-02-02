@@ -1,0 +1,19 @@
+[General]
+Name=DualSense Wireless Controller
+Class=0x002508
+SupportedTechnologies=BR/EDR;
+Trusted=true
+Blocked=false
+WakeAllowed=true
+Services=00001124-0000-1000-8000-00805f9b34fb;00001200-0000-1000-8000-00805f9b34fb;
+
+[DeviceID]
+Source=2
+Vendor=1356
+Product=3302
+Version=256
+
+[LinkKey]
+Key=751E30C2975A5EEF0BA70DD65133726E
+Type=4
+PINLength=0
