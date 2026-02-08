@@ -1,29 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Retro Launcher</title>
-    <style>
-        body { background: #000; color: #33ff33; font-family: 'Courier New', monospace; text-align: center; padding-top: 50px; }
-        .menu-box { border: 2px solid #33ff33; display: inline-block; padding: 20px; box-shadow: 0 0 15px #33ff33; }
-        .btn { 
-            display: block; width: 200px; padding: 15px; margin: 10px auto;
-            border: 1px solid #33ff33; text-decoration: none; color: #33ff33;
-            font-weight: bold; font-size: 1.2em;
-        }
-        .btn:hover { background: #33ff33; color: #000; }
-        /* Style for the Exit Button */
-        .btn-exit { border-color: #ff3333; color: #ff3333; margin-top: 30px; }
-        .btn-exit:hover { background: #ff3333; color: #000; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Retro Remote</title>
 </head>
 <body>
-    <div class="menu-box">
-        <h1>[ SYSTEM BOOT READY ]</h1>
-        <p>SELECT ROM TO INITIALIZE:</p>
-        <hr>
-        <a href="/launch/YuGiOh" class="btn">> LAUNCH YuGiOh</a>
-        
-        <a href="/exit" class="btn btn-exit">> STOP EMULATOR</a>
+    <h1>Select System</h1>
+    
+    <div class="grid">
+        {% for id, info in emulators.items() %}
+        <a href="/emulator/{{ id }}" class="card">
+            <img src="{{ url_for('static', filename='assets/emulators/' + info.icon) }}">
+            <p>{{ info.name }}</p>
+        </a>
+        {% endfor %}
     </div>
+
+    <button class="btn-stop" onclick="fetch('/stop')">Stop All Emulators</button>
 </body>
 </html>

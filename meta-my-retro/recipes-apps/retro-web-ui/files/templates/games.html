@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{{ emu_name }} - Remote</title>
+</head>
+<body>
+    <a href="/" class="back-link">&larr; Switch System</a>
+    
+    <h1>{{ emu_name }}</h1>
+
+    <div class="grid">
+        {% for game in games %}
+        <a href="/launch/{{ game.id }}" class="card">
+            <img src="{{ url_for('static', filename='assets/games/' + emu_id + '/' + game.image) }}" 
+                 alt="{{ game.name }}">
+            <p>{{ game.name }}</p>
+        </a>
+        {% endfor %}
+    </div>
+
+    <button class="btn-stop" onclick="fetch('/stop')">Stop Game</button>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                console.log("Launching...");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 app.py
 WorkingDirectory=/home/root/webui
+ExecStart=/usr/bin/python3 app.py
 Restart=always
 User=root
 
