@@ -24,4 +24,4 @@ do_install() {
 }
 
 # Tell Yocto that these files belong to the package
-FILES:${PN} += "/usr/games/gba/GXDuelAcademy.gba"
+FILES:${PN} += "/usr/games/gba/"

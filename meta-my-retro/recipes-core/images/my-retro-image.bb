@@ -19,8 +19,13 @@ IMAGE_INSTALL += " \
     procps \
     bluez5 \
     pi-bluetooth \
-    linux-firmware-rpidistro-bcm43430\
+    linux-firmware-rpidistro-bcm43430 \
     usbutils \
     retroarch-autoconfig \
     auto-pair \
+    networkmanager \
+    networkmanager-nmcli \
+    linux-firmware-rpidistro-bcm43455 \
+    dnsmasq \
+    hotspot-config \
 "
