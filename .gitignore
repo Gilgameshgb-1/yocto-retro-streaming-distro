@@ -12,8 +12,10 @@
 bitbake.lock
 pseudo/
 
-# Ignore emu files GBA only for now
-meta-custom-games/recipes-core/custom-roms/files/*.gba
+# Ignore emu files
+meta-custom-games/recipes-core/custom-roms/files/gba/*.gba
+meta-custom-games/recipes-core/custom-roms/files/n64/*.z64
+meta-custom-games/recipes-core/custom-roms/files/psp/*.iso
 
 #Ignore vscode folders
 .vscode

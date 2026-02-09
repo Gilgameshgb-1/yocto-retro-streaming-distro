@@ -3,7 +3,19 @@ PACKAGECONFIG:append = " gles egl kms"
 
 # Are the input drivers and autoconfigs working properly? 
 
+# Patch n64 emulator
+SRC_URI += " \
+    file://Mupen64Plus-Next.opt \
+"
+
 do_install:append() {
+    # n64 emu patch for rpi5
+    install -d ${D}/root/.config/retroarch/config/Mupen64Plus-Next
+    install -m 0644 ${WORKDIR}/Mupen64Plus-Next.opt ${D}/root/.config/retroarch/config/Mupen64Plus-Next.opt
+
+    # Set vulkan as default video_driver
+    sed -i 's/^video_driver = .*/video_driver = "vulkan"/' ${D}${sysconfdir}/retroarch.cfg
+
     # Fix up audio issues by setting proper driver and refresh rate, don't change the HDMI variant yet
     sed -i 's/audio_driver = .*/audio_driver = "alsa"/' ${D}${sysconfdir}/retroarch.cfg
     sed -i 's/audio_out_rate = .*/audio_out_rate = "48000"/' ${D}${sysconfdir}/retroarch.cfg
@@ -19,3 +31,5 @@ do_install:append() {
     # Enable automatic configuration
     sed -i 's/^input_autodetect_enable = .*/input_autodetect_enable = "true"/' ${D}${sysconfdir}/retroarch.cfg
 }
+
+FILES:${PN} += "/root/.config/retroarch/*"

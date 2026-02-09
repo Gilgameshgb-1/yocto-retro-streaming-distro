@@ -28,13 +28,13 @@ GAMES = {
     ],
     "n64": [
         {"id": "mario64", "name": "Super Mario 64", "image": "SuperMario64.png", 
-         "cmd": ""},
+         "cmd": "retroarch -L /usr/lib/libretro/mupen64plus_next_libretro.so /usr/games/n64/SuperMario64.z64"},
         {"id": "conker", "name": "Conker's Bad Fur Day", "image": "ConkerBadFurDay.png", 
-         "cmd": ""},
+         "cmd": "retroarch -L /usr/lib/libretro/mupen64plus_next_libretro.so /usr/games/n64/ConkerBadFurDay.z64"},
         {"id": "marioparty", "name": "Mario Party 64", "image": "MarioParty.png", 
-         "cmd": ""},
+         "cmd": "retroarch -L /usr/lib/libretro/mupen64plus_next_libretro.so /usr/games/n64/MarioParty3.z64"},
         {"id": "pokemonstadium2", "name": "Pokemon Stadium 2", "image": "PokemonStadium2.png", 
-         "cmd": ""}
+         "cmd": "retroarch -L /usr/lib/libretro/mupen64plus_next_libretro.so /usr/games/n64/PokemonStadium.z64"}
     ],
     "ps2": [
         {"id": "beyondgoodandevil", "name": "Beyond Good and Evil", "image": "BeyondGoodAndEvil.png", 
@@ -54,7 +54,7 @@ GAMES = {
         {"id": "marvelultimatealliance", "name": "Marvel Ultimate Alliance", "image": "MarvelUltimateAlliance.png", 
         "cmd":""},
         {"id": "mgspeacewalker", "name": "MGS Peace Walker", "image": "MGSPeaceWalker.png", 
-        "cmd":""}
+        "cmd":"retroarch -L /usr/lib/libretro/ppsspp_libretro.so /usr/games/psp/MGSPeaceWalker.iso"}
     ]
 }
 
@@ -88,6 +88,15 @@ def stop():
     # pkill -f kills any process with 'retroarch' in the name
     subprocess.run(["pkill", "-f", "retroarch"])
     return "Stopped"
+
+@app.route('/pair')
+def pair_controller():
+    try:
+        # Runs your script from the Yocto bindir
+        subprocess.run(["python3", "/usr/bin/auto-pair.py"], check=True)
+        return "Pairing Started..."
+    except Exception as e:
+        return f"Error: {str(e)}", 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

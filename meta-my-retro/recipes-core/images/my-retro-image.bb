@@ -7,8 +7,11 @@ require recipes-core/images/core-image-base.bb
 IMAGE_FEATURES += "ssh-server-dropbear"
 IMAGE_INSTALL += " \
     vsftpd \
+    gdb \
     retroarch \
     mgba-libretro \
+    mupen64plus-libretro \
+    ppsspp-libretro \
     custom-roms \
     alsa-utils \
     alsa-plugins \
