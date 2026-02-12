@@ -1,0 +1,5 @@
+mupen64plus-next-cpucore = "cached_interpreter"
+mupen64plus-next-rdp-plugin = "gliden64"
+mupen64plus-next-rsp-plugin = "hle"
+mupen64plus-next-43screenmask = "enabled"
+mupen64plus-next-EnableNativeResTexRects = "disabled"

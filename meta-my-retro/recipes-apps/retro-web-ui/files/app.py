@@ -47,8 +47,8 @@ GAMES = {
         "cmd":""}
     ],
         "psp": [
-        {"id": "godofwarcoo", "name": "God Of War CoO", "image": "GoWCoO.png", 
-        "cmd": ""},
+        {"id": "dbzshinbudokai2", "name": "Dragon Ball Z: Shin Budokai 2", "image": "DBZShinBudokai2.png", 
+        "cmd": "retroarch -L /usr/lib/libretro/ppsspp_libretro.so /usr/games/psp/DBZShinBudokai2.iso"},
         {"id": "littlebigplanet", "name": "Little Big Planet", "image": "LittleBigPlanet.png", 
         "cmd": ""},
         {"id": "marvelultimatealliance", "name": "Marvel Ultimate Alliance", "image": "MarvelUltimateAlliance.png", 

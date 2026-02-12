@@ -11,6 +11,7 @@ SRC_URI = " \
     file://n64/PokemonStadium.z64 \
     file://n64/SuperMario64.z64 \
     file://psp/MGSPeaceWalker.iso \
+    file://psp/DBZShinBudokai2.iso \
 "
 
 S = "${WORKDIR}"
@@ -28,6 +29,9 @@ do_install() {
     install -m 0644 ${S}/n64/*.z64 ${D}/usr/games/n64/
     # Don't install psp for now (big files)
     # install -m 0644 ${S}/psp/*.iso ${D}/usr/games/psp/
+
+    # Try this game on psp
+    install -m 0644 ${S}/psp/DBZShinBudokai2.iso ${D}/usr/games/psp/
 }
 
 # Tell Yocto that these files belong to the package

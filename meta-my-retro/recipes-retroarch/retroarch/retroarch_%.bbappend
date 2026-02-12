@@ -3,17 +3,19 @@ PACKAGECONFIG:append = " gles egl kms"
 
 # Are the input drivers and autoconfigs working properly? 
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 # Patch n64 emulator
 SRC_URI += " \
+    file://PPSSPP.cfg \
+    file://PPSSPP.opt \
+    file://Mupen64Plus-Next.cfg \
     file://Mupen64Plus-Next.opt \
 "
+# Definition of config for RetroArch emu locations
+RA_CONF_DEST = "${D}${ROOT_HOME}/.config/retroarch/config"
 
 do_install:append() {
-    # n64 emu patch for rpi5
-    install -d ${D}/root/.config/retroarch/config/Mupen64Plus-Next
-    install -m 0644 ${WORKDIR}/Mupen64Plus-Next.opt ${D}/root/.config/retroarch/config/Mupen64Plus-Next.opt
-
-    # Set vulkan as default video_driver
+   # Set vulkan as default video_driver
     sed -i 's/^video_driver = .*/video_driver = "vulkan"/' ${D}${sysconfdir}/retroarch.cfg
 
     # Fix up audio issues by setting proper driver and refresh rate, don't change the HDMI variant yet
@@ -30,6 +32,16 @@ do_install:append() {
 
     # Enable automatic configuration
     sed -i 's/^input_autodetect_enable = .*/input_autodetect_enable = "true"/' ${D}${sysconfdir}/retroarch.cfg
+
+    # Install emulator-specific.cfgs
+    install -d ${RA_CONF_DEST}/PPSSPP
+    install -d ${RA_CONF_DEST}/Mupen64Plus-Next
+
+    install -m 0644 ${WORKDIR}/PPSSPP.cfg ${RA_CONF_DEST}/PPSSPP/PPSSPP.cfg
+    install -m 0644 ${WORKDIR}/PPSSPP.opt ${RA_CONF_DEST}/PPSSPP/PPSSPP.opt
+
+    install -m 0644 ${WORKDIR}/Mupen64Plus-Next.cfg ${RA_CONF_DEST}/Mupen64Plus-Next/Mupen64Plus-Next.cfg
+    install -m 0644 ${WORKDIR}/Mupen64Plus-Next.opt ${RA_CONF_DEST}/Mupen64Plus-Next/Mupen64Plus-Next.opt
 }
 
 FILES:${PN} += "/root/.config/retroarch/*"

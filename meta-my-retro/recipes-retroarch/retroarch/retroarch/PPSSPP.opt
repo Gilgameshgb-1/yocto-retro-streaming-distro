@@ -1,0 +1,7 @@
+ppsspp_cpu_core = "JIT"
+ppsspp_internal_resolution = "960x544"
+ppsspp_gpu_hardware_transform = "enabled"
+ppsspp_vertex_cache = "enabled"
+ppsspp_lazy_texture_caching = "enabled"
+ppsspp_spline_quality = "Low"
+ppsspp_rendering_mode = "buffered"
