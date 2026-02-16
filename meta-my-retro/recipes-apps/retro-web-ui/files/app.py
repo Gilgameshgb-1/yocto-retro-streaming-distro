@@ -10,7 +10,8 @@ EMULATORS = {
     "gba": {"name": "GameBoy Advance", "icon": "gba.png"},
     "n64": {"name": "Nintendo 64", "icon": "n64.png"},
     "ps2": {"name": "Playstation 2", "icon": "ps2.png"},
-    "psp": {"name": "PSP", "icon": "psp.png"}
+    "psp": {"name": "PSP", "icon": "psp.png"},
+    "gamecube": {"name": "GameCube", "icon": "gamecube.png"}
 }
 
 # RPi Retroarch commands
@@ -55,6 +56,10 @@ GAMES = {
         "cmd":""},
         {"id": "mgspeacewalker", "name": "MGS Peace Walker", "image": "MGSPeaceWalker.png", 
         "cmd":"retroarch -L /usr/lib/libretro/ppsspp_libretro.so /usr/games/psp/MGSPeaceWalker.iso"}
+    ],
+    "gamecube": [
+        {"id": "supermariosunshine", "name": "Super Mario Sunshine", "image": "smariosunshine.png", 
+         "cmd": "retroarch -L /usr/lib/libretro/dolphin_libretro.so /usr/games/gamecube/SuperMarioSunshine.rvz"}
     ]
 }
 

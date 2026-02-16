@@ -32,3 +32,6 @@ IMAGE_INSTALL += " \
     dnsmasq \
     hotspot-config \
 "
+
+# dolphin-libretro \
+# glibc-utils \

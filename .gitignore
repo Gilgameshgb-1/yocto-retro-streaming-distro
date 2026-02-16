@@ -16,6 +16,8 @@ pseudo/
 meta-custom-games/recipes-core/custom-roms/files/gba/*.gba
 meta-custom-games/recipes-core/custom-roms/files/n64/*.z64
 meta-custom-games/recipes-core/custom-roms/files/psp/*.iso
+meta-custom-games/recipes-core/custom-roms/files/gamecube/*.rvz
+
 
 #Ignore vscode folders
 .vscode
