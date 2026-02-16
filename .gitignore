@@ -17,6 +17,9 @@ meta-custom-games/recipes-core/custom-roms/files/gba/*.gba
 meta-custom-games/recipes-core/custom-roms/files/n64/*.z64
 meta-custom-games/recipes-core/custom-roms/files/psp/*.iso
 meta-custom-games/recipes-core/custom-roms/files/gamecube/*.rvz
+meta-custom-games/recipes-core/custom-roms/files/ps1/*.bin
+meta-custom-games/recipes-core/custom-roms/files/ps1/*.cue
+meta-my-retro/files/*.bin
 
 
 #Ignore vscode folders

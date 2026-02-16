@@ -12,6 +12,7 @@ IMAGE_INSTALL += " \
     mgba-libretro \
     mupen64plus-libretro \
     ppsspp-libretro \
+    pcsx-rearmed-libretro \
     custom-roms \
     alsa-utils \
     alsa-plugins \

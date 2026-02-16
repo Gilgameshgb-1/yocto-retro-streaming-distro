@@ -47,3 +47,29 @@ Currently you can run emu by using this command as root in debug image (also you
 
 ## Playing the games
 All that's neccessary is that the raspberrypi is on and hdmi connected to the HDMI device. The game will stream there. Pi has no need to connect to the internet but if connected to the router via eth cable, it will provide internet access as well to the connected devices. 
+
+## Legal Disclaimer
+
+This project is intended for educational and private use only.
+
+**No Firmware/BIOS Included:**
+
+ This repository does not host, distribute, or provide any proprietary system files, firmware, or BIOS images. This includes, but is not limited to:
+
+  * Sony PlayStation: scph5500.bin, scph5501.bin, scph5502.bin, etc.
+
+  * Nintendo Systems: System firmware, IPL.bin, font_*.bin, or cryptographic keys (prod.keys, title.keys).
+* **No Game ROMs/ISO:** No copyrighted game software is included in this repository. I do not condone, encourage, or support the use of pirated software. Users must provide their own legally obtained game backups. 
+
+**DMCA & Anti-Circumvention**
+
+* These recipes are instructions for compiling open-source software. They do not contain "circumvention tools" designed to bypass Technological Protection Measures (TPMs) as defined by the Digital Millennium Copyright Act (DMCA).
+
+**Trademarks:** 
+* All product names, logos, and brands are the property of their respective owners:
+
+    Sony® and PlayStation® are registered trademarks of Sony Interactive Entertainment Inc.
+
+    Nintendo® and all associated console names (NES, SNES, N64, GameCube, Wii, Switch) are trademarks of Nintendo Co., Ltd.
+
+    This project is an independent open-source endeavor and is not affiliated with, authorized, or endorsed by Sony or Nintendo.
