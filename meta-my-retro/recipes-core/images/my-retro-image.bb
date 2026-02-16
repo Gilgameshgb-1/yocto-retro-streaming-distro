@@ -34,5 +34,5 @@ IMAGE_INSTALL += " \
     hotspot-config \
 "
 
-# dolphin-libretro \
-# glibc-utils \
+# dolphin-libretro
+# glibc-utils

@@ -12,11 +12,13 @@ SRC_URI = " \
     file://n64/SuperMario64.z64 \
     file://psp/MGSPeaceWalker.iso \
     file://psp/DBZShinBudokai2.iso \
+    file://ps1/CrashBandicoot.bin \
+    file://ps1/CrashBandicoot.cue \
 "
 
 # Some attempts at gamecube games
-#    file://gamecube/SuperMarioSunshine.rvz \
-#    file://Sys/ \
+#    file://gamecube/SuperMarioSunshine.rvz
+#    file://Sys/
 
 S = "${WORKDIR}"
 
@@ -28,6 +30,7 @@ do_install() {
     install -d ${D}/usr/games/n64/
     install -d ${D}/usr/games/psp/
     # install -d ${D}/usr/games/gamecube/
+    install -d ${D}/usr/games/ps1/
 
     # Ensure files can be seen write/read permissions (GBA, n64, psp, gamecube, ps1)
     install -m 0644 ${S}/gba/*.gba ${D}/usr/games/gba/
@@ -43,6 +46,7 @@ do_install() {
     # Try this game on psp
     install -m 0644 ${S}/psp/DBZShinBudokai2.iso ${D}/usr/games/psp/
 
+    install -m 0644 ${S}/ps1/CrashBandicoot.* ${D}/usr/games/ps1/
 
     # More attempts at gamecube
     # install -d ${D}/usr/share/retroarch/bios/dolphin-emu/Sys
@@ -56,5 +60,6 @@ do_install() {
 FILES:${PN} += "/usr/games/gba/"
 FILES:${PN} += "/usr/games/n64/"
 FILES:${PN} += "/usr/games/psp/"
-FILES:${PN} += "/usr/games/gamecube/"
-FILES:${PN} += "/usr/share/retroarch/bios/dolphin-emu/Sys/"
+# FILES:${PN} += "/usr/games/gamecube/"
+# FILES:${PN} += "/usr/share/retroarch/bios/dolphin-emu/Sys/"
+FILES:${PN} += "/usr/games/ps1/"
