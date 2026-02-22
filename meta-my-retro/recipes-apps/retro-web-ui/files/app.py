@@ -13,7 +13,8 @@ EMULATORS = {
     "psp": {"name": "PSP", "icon": "psp.png"},
     "gamecube": {"name": "GameCube", "icon": "gamecube.png"},
     "ps1": {"name": "Playstation 1", "icon": "ps1.png"},
-    "dreamcast": {"name": "Dreamcast", "icon": "dreamcast.png"}
+    "dreamcast": {"name": "Dreamcast", "icon": "dreamcast.png"},
+    "nds": {"name": "Nintendo DS", "icon": "nds.png"}
 }
 
 # RPi Retroarch commands
@@ -71,7 +72,17 @@ GAMES = {
     ],
     "dreamcast":[
         {"id": "sonicadventure2", "name": "Sonic Adventure 2", "image": ".png",
-         "cmd": "retroarch -L /usr/lib/libretro/flycast_libretro.so /usr/games/dreamcast/SonicAdventure2.chd"}
+         "cmd": "retroarch -L /usr/lib/libretro/flycast_libretro.so /usr/games/dreamcast/SonicAdventure2.gdi"}
+    ],
+    "nds":[
+        {"id": "newsupermariobros", "name": "New Super Mario Bros", "image": "NewSuperMarioBros.png",
+         "cmd": "retroarch -L /usr/lib/libretro/melonds_libretro.so /usr/games/nds/NewSuperMarioBros.nds"},
+        {"id": "aceattorneymiles", "name": "Ace Attorney Miles Edgeworth", "image": "AceAttorneyMiles.png",
+         "cmd": "retroarch -L /usr/lib/libretro/melonds_libretro.so /usr/games/nds/AceAttorneyMiles.nds"},
+         {"id": "dawnofsorrow", "name": "Dawn of Sorrow", "image": "DawnOfSorrow.png",
+         "cmd": "retroarch -L /usr/lib/libretro/melonds_libretro.so /usr/games/nds/DawnOfSorrow.nds"},
+         {"id": "partnersintime", "name": "Partners in Time", "image": "PartnersInTime.png",
+         "cmd": "retroarch -L /usr/lib/libretro/melonds_libretro.so /usr/games/nds/PartnersInTime.nds"}
     ]
 }
 

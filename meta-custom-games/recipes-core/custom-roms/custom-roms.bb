@@ -19,6 +19,10 @@ SRC_URI = " \
     file://dreamcast/sa2_t1.bin \
     file://dreamcast/sa2_t2.bin \
     file://dreamcast/sa2_t3.bin \
+    file://nds/AceAttorneyMiles.nds \
+    file://nds/DawnOfSorrow.nds \
+    file://nds/NewSuperMarioBros.nds \
+    file://nds/PartnersInTime.nds \
 "
 
 # Some attempts at gamecube games
@@ -38,18 +42,20 @@ do_install() {
     # install -d ${D}/usr/games/gamecube/
     install -d ${D}/usr/games/ps1/
     install -d ${D}/usr/games/dreamcast/
+    install -d ${D}/usr/games/nds/
 
     # Ensure files can be seen write/read permissions (GBA, n64, psp, gamecube, ps1)
     install -m 0644 ${S}/gba/*.gba ${D}/usr/games/gba/
     install -m 0644 ${S}/n64/*.z64 ${D}/usr/games/n64/
+    install -m 0644 ${S}/nds/*.nds ${D}/usr/games/nds/
     # install -m 0644 ${S}/gamecube/*.rvz ${D}/usr/games/gamecube/
     # install -m 0644 ${S}/gamecube/SuperMarioSunshine.rvz ${D}/usr/games/gamecube/
 
     # install some dreamcast game
-    install -m 0644 ${S}/sa2.gdi ${D}/usr/games/dreamcast/
-    install -m 0644 ${S}/sa2_t1.bin ${D}/usr/games/dreamcast/
-    install -m 0644 ${S}/sa2_t2.bin ${D}/usr/games/dreamcast/
-    install -m 0644 ${S}/sa2_t3.bin ${D}/usr/games/dreamcast/
+    install -m 0644 ${S}/dreamcast/SonicAdventure2.gdi ${D}/usr/games/dreamcast/
+    install -m 0644 ${S}/dreamcast/sa2_t1.bin ${D}/usr/games/dreamcast/
+    install -m 0644 ${S}/dreamcast/sa2_t2.bin ${D}/usr/games/dreamcast/
+    install -m 0644 ${S}/dreamcast/sa2_t3.bin ${D}/usr/games/dreamcast/
 
     # Don't install psp for now (big files)
     # install -m 0644 ${S}/psp/*.iso ${D}/usr/games/psp/
@@ -78,3 +84,4 @@ FILES:${PN} += "/usr/games/gamecube/"
 # FILES:${PN} += "/usr/share/retroarch/bios/dolphin-emu/Sys/"
 FILES:${PN} += "/usr/games/ps1/"
 FILES:${PN} += "/usr/games/dreamcast/"
+FILES:${PN} += "/usr/games/nds/"

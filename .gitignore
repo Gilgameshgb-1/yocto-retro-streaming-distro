@@ -21,7 +21,9 @@ meta-custom-games/recipes-core/custom-roms/files/ps1/*.bin
 meta-custom-games/recipes-core/custom-roms/files/ps1/*.cue
 meta-custom-games/recipes-core/custom-roms/files/dreamcast/*.bin
 meta-custom-games/recipes-core/custom-roms/files/dreamcast/*.gdi
-meta-my-retro/files/*.bin
+meta-custom-games/recipes-core/custom-roms/files/nds/*.nds
+meta-my-retro/dreamcast-bios/files/*.bin
+meta-my-retro/ps1-bios/files/*.bin
 
 
 #Ignore vscode folders

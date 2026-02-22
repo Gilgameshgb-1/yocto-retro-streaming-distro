@@ -15,6 +15,7 @@ IMAGE_INSTALL += " \
     vsftpd \
     gdb \
     flycast-libretro \
+    melonds-libretro \
     retroarch \
     mgba-libretro \
     mupen64plus-libretro \
