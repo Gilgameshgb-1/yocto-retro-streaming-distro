@@ -6,8 +6,15 @@ require recipes-core/images/core-image-base.bb
 # Features and Packages
 IMAGE_FEATURES += "ssh-server-dropbear"
 IMAGE_INSTALL += " \
+    bzip2 xz \
+    alsa-lib \
+    libevdev \
+    ffmpeg \
+    mesa-vulkan-drivers \
+    libusb1 \
     vsftpd \
     gdb \
+    flycast-libretro \
     retroarch \
     mgba-libretro \
     mupen64plus-libretro \
@@ -33,6 +40,3 @@ IMAGE_INSTALL += " \
     dnsmasq \
     hotspot-config \
 "
-
-# dolphin-libretro
-# glibc-utils

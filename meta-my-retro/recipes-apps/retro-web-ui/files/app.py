@@ -12,7 +12,8 @@ EMULATORS = {
     "ps2": {"name": "Playstation 2", "icon": "ps2.png"},
     "psp": {"name": "PSP", "icon": "psp.png"},
     "gamecube": {"name": "GameCube", "icon": "gamecube.png"},
-    "ps1": {"name": "Playstation 1", "icon": "ps1.png"}
+    "ps1": {"name": "Playstation 1", "icon": "ps1.png"},
+    "dreamcast": {"name": "Dreamcast", "icon": "dreamcast.png"}
 }
 
 # RPi Retroarch commands
@@ -60,11 +61,17 @@ GAMES = {
     ],
     "gamecube": [
         {"id": "supermariosunshine", "name": "Super Mario Sunshine", "image": "smariosunshine.png", 
-         "cmd": "retroarch -L /usr/lib/libretro/dolphin_libretro.so /usr/games/gamecube/SuperMarioSunshine.rvz"}
+         "cmd": "retroarch -L /usr/lib/libretro/dolphin_libretro.so /usr/games/gamecube/SuperMarioSunshine.rvz"},
+        {"id": "papermario", "name": "Paper Mario", "image": "papermario.png",
+         "cmd": "retroarch -L /usr/lib/libretro/dolphin_libretro.so /usr/games/gamecube/PaperMario.rvz"}
     ],
     "ps1":[
         {"id": "crashbandicoot", "name": "Crash Bandicoot", "image": "crashbandicoot.png",
          "cmd": "retroarch -L /usr/lib/libretro/pcsx_rearmed_libretro.so /usr/games/ps1/CrashBandicoot.bin"},
+    ],
+    "dreamcast":[
+        {"id": "sonicadventure2", "name": "Sonic Adventure 2", "image": ".png",
+         "cmd": "retroarch -L /usr/lib/libretro/flycast_libretro.so /usr/games/dreamcast/SonicAdventure2.chd"}
     ]
 }
 
