@@ -1,0 +1,20 @@
+#!/bin/sh
+# NetworkManager dispatcher script
+# Runs when a connection comes up/down.
+# Ensures hotspot clients can reach the Pi's web services on ports 5000 and 5001.
+
+IFACE="$1"
+ACTION="$2"
+CONNECTION_ID="${CONNECTION_ID:-}"
+
+# Only act on the hotspot AP interface (wlan0) when it comes up
+[ "$ACTION" = "up" ] || exit 0
+[ "$IFACE" = "wlan0" ] || exit 0
+
+# Allow inbound TCP on ports 5000 and 5001 from the hotspot subnet
+iptables -C INPUT -i wlan0 -p tcp --dport 80   -j ACCEPT 2>/dev/null || \
+    iptables -I INPUT -i wlan0 -p tcp --dport 80   -j ACCEPT
+iptables -C INPUT -i wlan0 -p tcp --dport 5000 -j ACCEPT 2>/dev/null || \
+    iptables -I INPUT -i wlan0 -p tcp --dport 5000 -j ACCEPT
+iptables -C INPUT -i wlan0 -p tcp --dport 5001 -j ACCEPT 2>/dev/null || \
+    iptables -I INPUT -i wlan0 -p tcp --dport 5001 -j ACCEPT

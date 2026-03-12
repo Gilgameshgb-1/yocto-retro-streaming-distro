@@ -1,0 +1,23 @@
+[Unit]
+Description=Huberry Stream – Flask web remote for MPV
+# Wait for the network so the webserver socket binds correctly
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/huberry-stream
+Environment=FLASK_HOST=0.0.0.0
+Environment=FLASK_PORT=5001
+# Launch the Flask app directly with Python; Werkzeug's dev server is
+# sufficient for a single-user LAN appliance.
+ExecStart=/usr/bin/python3 /opt/huberry-stream/remote.py
+Restart=on-failure
+RestartSec=5
+User=root
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -52,10 +52,10 @@ do_install() {
     # install -m 0644 ${S}/gamecube/SuperMarioSunshine.rvz ${D}/usr/games/gamecube/
 
     # install some dreamcast game
-    install -m 0644 ${S}/dreamcast/SonicAdventure2.gdi ${D}/usr/games/dreamcast/
-    install -m 0644 ${S}/dreamcast/sa2_t1.bin ${D}/usr/games/dreamcast/
-    install -m 0644 ${S}/dreamcast/sa2_t2.bin ${D}/usr/games/dreamcast/
-    install -m 0644 ${S}/dreamcast/sa2_t3.bin ${D}/usr/games/dreamcast/
+    # install -m 0644 ${S}/dreamcast/SonicAdventure2.gdi ${D}/usr/games/dreamcast/
+    # install -m 0644 ${S}/dreamcast/sa2_t1.bin ${D}/usr/games/dreamcast/
+    # install -m 0644 ${S}/dreamcast/sa2_t2.bin ${D}/usr/games/dreamcast/
+    # install -m 0644 ${S}/dreamcast/sa2_t3.bin ${D}/usr/games/dreamcast/
 
     # Don't install psp for now (big files)
     # install -m 0644 ${S}/psp/*.iso ${D}/usr/games/psp/
@@ -64,9 +64,9 @@ do_install() {
     # install -m 0644 ${S}/gamecube/SuperMarioSunshine.rvz ${D}/usr/games/gamecube/
 
     # Try this game on psp
-    install -m 0644 ${S}/psp/DBZShinBudokai2.iso ${D}/usr/games/psp/
+    # install -m 0644 ${S}/psp/DBZShinBudokai2.iso ${D}/usr/games/psp/
 
-    install -m 0644 ${S}/ps1/CrashBandicoot.* ${D}/usr/games/ps1/
+    # install -m 0644 ${S}/ps1/CrashBandicoot.* ${D}/usr/games/ps1/
 
     # More attempts at gamecube
     # install -d ${D}/usr/share/retroarch/bios/dolphin-emu/Sys

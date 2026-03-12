@@ -40,4 +40,13 @@ IMAGE_INSTALL += " \
     linux-firmware-rpidistro-bcm43455 \
     dnsmasq \
     hotspot-config \
+    iptables \
+    nginx \
+    nginx-retro \
+    mpv \
+    huberry-stream \
+    python3-libtorrent-rasterbar \
+    movies-storage-init \
+    fontconfig \
+    ttf-dejavu-sans \
 "

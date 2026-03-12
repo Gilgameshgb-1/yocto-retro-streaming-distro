@@ -12,6 +12,9 @@ repos:
   meta-custom-games:
     path: meta-custom-games
 
+  meta-webserver-stream:
+    path: meta-webserver-stream
+
   poky:
     url: "git://git.yoctoproject.org/poky"
     branch: "scarthgap"
@@ -30,6 +33,7 @@ repos:
       meta-python:
       meta-networking:
       meta-multimedia:
+      meta-webserver:
 
   meta-raspberrypi:
     url: "git@github.com:agherzan/meta-raspberrypi.git"

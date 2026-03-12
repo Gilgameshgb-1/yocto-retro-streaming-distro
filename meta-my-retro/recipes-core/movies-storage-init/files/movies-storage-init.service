@@ -1,0 +1,14 @@
+[Unit]
+Description=Grow rootfs partition to 42 GB on first boot
+ConditionPathExists=!/etc/.storage-expanded
+After=local-fs.target
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/movies-storage-init.sh
+RemainAfterExit=yes
+TimeoutStartSec=120
+
+[Install]
+WantedBy=sysinit.target

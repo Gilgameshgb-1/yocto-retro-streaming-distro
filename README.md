@@ -1,75 +1,52 @@
 # My Retro OS (Pi 5)
 
-A custom Yocto-based Linux distribution for the Raspberry Pi 5 for future emulation and streaming platform.
+<p align="center"><img src="readme-assets/bannerGames.svg" width="60%"></p>
 
-## Repository Structure
-* **`meta-my-retro/`**: My custom Yocto layer
-* **`kas-project.yml`**: Build file
+A custom Linux image for the Raspberry Pi 5 that turns it into a self-contained retro gaming and movie streaming box. No monitor, keyboard, or internet connection required (except for storing the movies/games), everything is controlled from your phone through a WiFi hotspot broadcast by the Pi itself.
 
-## Prerequisites
+## What it does
 
-1.  **System Dependencies**: Ensure your host machine (Ubuntu 24.04 recommended) has the standard Yocto dependencies installed.
-2.  **Install Kas**:
-    ```bash
-    sudo apt update && sudo apt install pipx
-    pipx install kas
-    ```
-## Build image
-    kas build kas-project.yml
+- **Retro gaming** - Launch games across multiple classic consoles directly from your phone's browser
+- **Movie streaming** - Download and play movies to the TV via a phone-friendly web remote (see [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer))
+- **Controller pairing** - Pair your PS5 DualSense wirelessly with one tap from the web UI
+- **Zero setup** - Flash the image, power on, connect to the Pi's WiFi hotspot, open your browser
 
-## Binding dualsense
-You can bind your PS5 Dualsense (Perhaps some other controllers supported too) if you change the MAC adress in the .py file: /usr/bin/auto-pair.py
+## Getting started
 
-    python3 /usr/bin/auto-pair.py
+Flash the image to an SD card and power on the Pi. On your phone:
 
-The button that does this script call is inside the webserver on the button Pair Controller. All you needto do is put your controller into pairing mode and then click this button. The py script will handle all the neccessary steps to communicate the bind and driver to retroarch emulation cores.
+1. Connect to the Pi's WiFi hotspot
+2. Open `http://retro.pi` for the game launcher
+3. Open `http://stream.pi` for the movie player
 
-## Webserver
-Webserver 1.0 Currently there exists a webserver running on the pi as a 
-remote control for basic operations towards the pi: Bluetooth connection/pairing  with your controller, Starting the games you have transferred, turning them off and moving around emulation categories.
+TODO: This left menu will be redesigned in the same manner as the [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer) player which can be seen on the right
 
-<img src="readme-assets/howTo.jpg" width="250" />
+<p align="center">
+<img src="readme-assets/attempt2.png" width="33%" />
+<img src="readme-assets/ImageMdOne.jpg" width="33%">
+ </p>
 
-The webserver can be accessed via default IP available on the raspberrypi: 10.42.0.1:5000. 
 
-## Bluetooth connection
+## Building the image
 
-You can connect your controller via bluetooth but unfortunately now it's for my controller only as it's a passion project. The MAC adress of the controller is written in the service and needs to be adapted. This will be resolved in the future to support actual pairing and different devices.
+Requires Ubuntu 24.04 and [kas](https://kas.readthedocs.io):
 
-## Running emu
+```bash
+sudo apt update && sudo apt install pipx
+pipx install kas
+kas build kas-project.yml
+```
 
-You can run your games through the webserver but there is also a more manual debug option with -v flag on retroarch.
+## Movie streaming
 
-Currently you can run emu by using this command as root in debug image (also you need to copy your ROM files).
-
-    cd /usr/
-    retroarch -L mgba_libretro.so games/your_game.gba
-
-## Playing the games
-All that's neccessary is that the raspberrypi is on and hdmi connected to the HDMI device. The game will stream there. Pi has no need to connect to the internet but if connected to the router via eth cable, it will provide internet access as well to the connected devices. 
+The streaming interface is powered by [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer). It lets you search, download, and play movies from your phone  video plays directly on the TV connected to the Pi via HDMI.
 
 ## Legal Disclaimer
 
 This project is intended for educational and private use only.
 
-**No Firmware/BIOS Included:**
+**No Firmware/BIOS Included:** This repository does not host, distribute, or provide any proprietary system files, firmware, or BIOS images.
 
- This repository does not host, distribute, or provide any proprietary system files, firmware, or BIOS images. This includes, but is not limited to:
+**No Game ROMs/ISO:** No copyrighted game software is included. Users must provide their own legally obtained game backups.
 
-  * Sony PlayStation: scph5500.bin, scph5501.bin, scph5502.bin, etc.
-
-  * Nintendo Systems: System firmware, IPL.bin, font_*.bin, or cryptographic keys (prod.keys, title.keys).
-* **No Game ROMs/ISO:** No copyrighted game software is included in this repository. I do not condone, encourage, or support the use of pirated software. Users must provide their own legally obtained game backups. 
-
-**DMCA & Anti-Circumvention**
-
-* These recipes are instructions for compiling open-source software. They do not contain "circumvention tools" designed to bypass Technological Protection Measures (TPMs) as defined by the Digital Millennium Copyright Act (DMCA).
-
-**Trademarks:** 
-* All product names, logos, and brands are the property of their respective owners:
-
-    Sony® and PlayStation® are registered trademarks of Sony Interactive Entertainment Inc.
-
-    Nintendo® and all associated console names (NES, SNES, N64, GameCube, Wii, Switch) are trademarks of Nintendo Co., Ltd.
-
-    This project is an independent open-source endeavor and is not affiliated with, authorized, or endorsed by Sony or Nintendo.
+**Trademarks:** Sony® and PlayStation® are registered trademarks of Sony Interactive Entertainment Inc. Nintendo® and all associated console names are trademarks of Nintendo Co., Ltd. This project is not affiliated with, authorized, or endorsed by Sony or Nintendo.
