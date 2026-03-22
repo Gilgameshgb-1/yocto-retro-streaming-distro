@@ -49,4 +49,8 @@ IMAGE_INSTALL += " \
     movies-storage-init \
     fontconfig \
     ttf-dejavu-sans \
+    box64 \
+    libsdl2 \
+    mesa-libgbm \
+    icu \
 "
