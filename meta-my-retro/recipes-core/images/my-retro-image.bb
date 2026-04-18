@@ -47,10 +47,11 @@ IMAGE_INSTALL += " \
     huberry-stream \
     python3-libtorrent-rasterbar \
     movies-storage-init \
+    setup-nvme \
     fontconfig \
     ttf-dejavu-sans \
     box64 \
     libsdl2 \
-    mesa-libgbm \
+    libgbm \
     icu \
 "

@@ -1,0 +1,14 @@
+[Unit]
+Description=Initialise NVMe SSD storage (/games and /movies)
+After=local-fs.target
+ConditionPathExists=!/var/lib/nvme-initialized
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/home/root/setup-nvme.sh
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

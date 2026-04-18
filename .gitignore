@@ -29,3 +29,7 @@ meta-my-retro/ps1-bios/files/*.bin
 #Ignore vscode folders
 .vscode
 .vscode-server/
+
+#Ignore CLAUDE, history and "skills"
+CLAUDE.md
+.claude/
