@@ -7,7 +7,7 @@ A custom Linux image for the Raspberry Pi 5 that turns it into a self-contained 
 ## What it does
 
 - **Retro gaming** - Launch games across multiple classic consoles directly from your phone's browser
-- **Movie streaming** - Download and play movies to the TV via a phone-friendly web remote (see [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer))
+- **Movie streaming** - Download and play movies to the TV via a phone-friendly web remote, or stream directly to your phone's browser (see [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer))
 - **Controller pairing** - Pair your PS5 DualSense wirelessly with one tap from the web UI
 - **Zero setup** - Flash the image, power on, connect to the Pi's WiFi hotspot, open your browser
 
@@ -39,7 +39,15 @@ kas build kas-project.yml
 
 ## Movie streaming
 
-The streaming interface is powered by [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer). It lets you search, download, and play movies from your phone  video plays directly on the TV connected to the Pi via HDMI.
+The streaming interface is powered by [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer). It lets you search, download, and play movies from your phone, video plays directly on the TV connected to the Pi via HDMI.
+
+### Stream to phone
+
+In addition to playing on the TV, you can stream any movie directly to your phone's browser. Tap **Stream Here** on any movie in the gallery and it opens a full-screen HTML5 video player right on your phone. Subtitle option is supported as well
+
+<p align="center">
+<img src="readme-assets/StreamToPhone.jpeg" width="33%">
+</p>
 
 ## Legal Disclaimer
 
