@@ -1,29 +1,31 @@
 SUMMARY = "Custom ROMs for RetroArch"
 LICENSE = "CLOSED"
 
-SRC_URI = " \
-    file://gba/GXDuelAcademy.gba \
-    file://gba/DragonBall2.gba \
-    file://gba/Medabots.gba \
-    file://gba/MetroidFusion.gba \
-    file://n64/ConkerBadFurDay.z64 \
-    file://n64/MarioParty3.z64 \
-    file://n64/PokemonStadium.z64 \
-    file://n64/SuperMario64.z64 \
-    file://psp/MGSPeaceWalker.iso \
-    file://psp/DBZShinBudokai2.iso \
-    file://ps1/CrashBandicoot.bin \
-    file://ps1/CrashBandicoot.cue \
-    file://gamecube/PaperMario.rvz \
-    file://dreamcast/SonicAdventure2.gdi \
-    file://dreamcast/sa2_t1.bin \
-    file://dreamcast/sa2_t2.bin \
-    file://dreamcast/sa2_t3.bin \
-    file://nds/AceAttorneyMiles.nds \
-    file://nds/DawnOfSorrow.nds \
-    file://nds/NewSuperMarioBros.nds \
-    file://nds/PartnersInTime.nds \
-"
+# ROM files - place in meta-custom-games/recipes-core/custom-roms/files/ before uncommenting
+# SRC_URI = " \
+#     file://gba/GXDuelAcademy.gba \
+#     file://gba/DragonBall2.gba \
+#     file://gba/Medabots.gba \
+#     file://gba/MetroidFusion.gba \
+#     file://n64/ConkerBadFurDay.z64 \
+#     file://n64/MarioParty3.z64 \
+#     file://n64/PokemonStadium.z64 \
+#     file://n64/SuperMario64.z64 \
+#     file://psp/MGSPeaceWalker.iso \
+#     file://psp/DBZShinBudokai2.iso \
+#     file://ps1/CrashBandicoot.bin \
+#     file://ps1/CrashBandicoot.cue \
+#     file://gamecube/PaperMario.rvz \
+#     file://dreamcast/SonicAdventure2.gdi \
+#     file://dreamcast/sa2_t1.bin \
+#     file://dreamcast/sa2_t2.bin \
+#     file://dreamcast/sa2_t3.bin \
+#     file://nds/AceAttorneyMiles.nds \
+#     file://nds/DawnOfSorrow.nds \
+#     file://nds/NewSuperMarioBros.nds \
+#     file://nds/PartnersInTime.nds \
+# "
+SRC_URI = ""
 
 # Some attempts at gamecube games
 #    file://gamecube/SuperMarioSunshine.rvz
@@ -45,9 +47,9 @@ do_install() {
     install -d ${D}/usr/games/nds/
 
     # Ensure files can be seen write/read permissions (GBA, n64, psp, gamecube, ps1)
-    install -m 0644 ${S}/gba/*.gba ${D}/usr/games/gba/
-    install -m 0644 ${S}/n64/*.z64 ${D}/usr/games/n64/
-    install -m 0644 ${S}/nds/*.nds ${D}/usr/games/nds/
+    # install -m 0644 ${S}/gba/*.gba ${D}/usr/games/gba/
+    # install -m 0644 ${S}/n64/*.z64 ${D}/usr/games/n64/
+    # install -m 0644 ${S}/nds/*.nds ${D}/usr/games/nds/
     # install -m 0644 ${S}/gamecube/*.rvz ${D}/usr/games/gamecube/
     # install -m 0644 ${S}/gamecube/SuperMarioSunshine.rvz ${D}/usr/games/gamecube/
 
