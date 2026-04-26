@@ -1,0 +1,12 @@
+[Unit]
+Description=Virtual gamepad daemon (uinput phone controller)
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/root/webui/virtual-pad.py
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

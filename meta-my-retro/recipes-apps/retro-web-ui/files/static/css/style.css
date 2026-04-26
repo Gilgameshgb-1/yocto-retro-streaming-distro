@@ -107,3 +107,77 @@ h1 {
     cursor: pointer;
     width: 80%;
 }
+
+/* ── Play / controller picker page ── */
+.play-subtitle {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.play-options {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    width: 95%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.play-card {
+    background: rgba(22, 10, 44, 0.7);
+    border: 2px solid var(--neon-purple);
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 140px;
+    max-width: 200px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.play-card:active, .play-card--phone:hover {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
+
+.play-card__icon {
+    font-size: 2.5rem;
+}
+
+.play-card__label {
+    color: #00FFFF;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.play-card__sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.btn-pair {
+    margin: 10px 0 40px;
+    background: transparent;
+    color: white;
+    border: 2px solid var(--neon-purple);
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px var(--neon-purple);
+    cursor: pointer;
+    width: 80%;
+}

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Controller</title>
+    <style>
+        :root {
+            --neon-pink: #FA43F9;
+            --neon-purple: #8D40FF;
+            --neon-blue: #5B33FE;
+            --neon-cyan: #00FFFF;
+            --bg-dark: #0d0221;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background: var(--bg-dark);
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #controller {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Shoulder strip ── */
+        #shoulders {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 8px;
+            background: rgba(0,0,0,0.4);
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .shoulder-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        #center-meta {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* ── Main play area ── */
+        #play-area {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            padding: 6px 8px 8px;
+            gap: 6px;
+            min-height: 0;
+        }
+
+        .side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            gap: 8px;
+        }
+
+        #center-col {
+            width: 80px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* ── Buttons ── */
+        .btn {
+            background: rgba(22, 10, 44, 0.85);
+            border: 2px solid var(--neon-purple);
+            border-radius: 50%;
+            color: white;
+            font-weight: 700;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: border-color 0.05s, box-shadow 0.05s;
+        }
+
+        .btn.pressed {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 12px var(--neon-pink);
+            background: rgba(250, 67, 249, 0.25);
+        }
+
+        .btn-face {
+            width: 52px; height: 52px;
+            font-size: 0.75rem;
+        }
+
+        .btn-face.btn-a { border-color: #00cc44; }
+        .btn-face.btn-b { border-color: #dd2222; }
+        .btn-face.btn-x { border-color: #2244ff; }
+        .btn-face.btn-y { border-color: #ddaa00; }
+
+        .btn-shoulder {
+            height: 38px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            padding: 0 14px;
+            min-width: 48px;
+        }
+
+        .btn-meta {
+            height: 30px;
+            border-radius: 8px;
+            font-size: 0.6rem;
+            padding: 0 10px;
+            border-color: rgba(141, 64, 255, 0.6);
+            min-width: 52px;
+        }
+
+        /* ── Face button diamond ── */
+        #face-diamond {
+            display: grid;
+            grid-template-columns: repeat(3, 52px);
+            grid-template-rows: repeat(3, 52px);
+            gap: 4px;
+        }
+
+        #face-diamond .btn-face:nth-child(1) { grid-column: 2; grid-row: 1; } /* Y / top */
+        #face-diamond .btn-face:nth-child(2) { grid-column: 1; grid-row: 2; } /* X / left */
+        #face-diamond .btn-face:nth-child(3) { grid-column: 3; grid-row: 2; } /* B / right */
+        #face-diamond .btn-face:nth-child(4) { grid-column: 2; grid-row: 3; } /* A / bottom */
+
+        /* ── D-pad ── */
+        #dpad {
+            display: grid;
+            grid-template-columns: repeat(3, 44px);
+            grid-template-rows: repeat(3, 44px);
+            gap: 3px;
+        }
+
+        .btn-dpad {
+            width: 44px; height: 44px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            border-color: rgba(141, 64, 255, 0.7);
+        }
+
+        #dpad .btn-dpad:nth-child(1) { grid-column: 2; grid-row: 1; } /* Up */
+        #dpad .btn-dpad:nth-child(2) { grid-column: 1; grid-row: 2; } /* Left */
+        #dpad .btn-dpad:nth-child(3) { grid-column: 3; grid-row: 2; } /* Right */
+        #dpad .btn-dpad:nth-child(4) { grid-column: 2; grid-row: 3; } /* Down */
+
+        /* ── Analog stick ── */
+        .stick-zone {
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            border: 2px solid rgba(141, 64, 255, 0.5);
+            background: rgba(0,0,0,0.4);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .stick-nub {
+            position: absolute;
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            background: rgba(91, 51, 254, 0.7);
+            border: 2px solid var(--neon-blue);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: background 0.1s;
+        }
+
+        .stick-zone.active .stick-nub {
+            background: rgba(250, 67, 249, 0.7);
+            border-color: var(--neon-pink);
+        }
+
+        /* ── Back link ── */
+        #back-btn {
+            position: fixed;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,255,255,0.5);
+            font-size: 0.6rem;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+
+        /* Portrait warning */
+        #rotate-hint {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 100;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-cyan);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 1rem;
+            text-align: center;
+            gap: 16px;
+        }
+
+        #rotate-hint span { font-size: 3rem; }
+
+        @media (orientation: portrait) and (max-height: 500px) {
+            /* very short portrait — probably fine, don't bother */
+        }
+
+        @media (orientation: portrait) and (min-height: 501px) {
+            #rotate-hint { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="rotate-hint">
+    <span>&#8635;</span>
+    Rotate your phone for the controller
+</div>
+
+<div id="controller">
+
+    <!-- Shoulder strip -->
+    <div id="shoulders">
+        <div class="shoulder-group">
+            <button class="btn btn-shoulder" data-btn="L2" id="btn-L2">L2</button>
+            <button class="btn btn-shoulder" data-btn="L1" id="btn-L1">L1</button>
+        </div>
+
+        <div id="center-meta">
+            <button class="btn btn-meta" data-btn="Select" id="btn-Select">Select</button>
+            <button class="btn btn-meta" data-btn="Start"  id="btn-Start">Start</button>
+        </div>
+
+        <div class="shoulder-group">
+            <button class="btn btn-shoulder" data-btn="R1" id="btn-R1">R1</button>
+            <button class="btn btn-shoulder" data-btn="R2" id="btn-R2">R2</button>
+        </div>
+    </div>
+
+    <!-- Play area -->
+    <div id="play-area">
+
+        <!-- Left side: Left stick + D-pad -->
+        <div class="side" id="left-side">
+            <div class="stick-zone" id="lstick-zone">
+                <div class="stick-nub" id="lstick-nub"></div>
+            </div>
+            <div id="dpad">
+                <button class="btn btn-dpad" data-btn="DpadUp">&#9650;</button>
+                <button class="btn btn-dpad" data-btn="DpadLeft">&#9664;</button>
+                <button class="btn btn-dpad" data-btn="DpadRight">&#9654;</button>
+                <button class="btn btn-dpad" data-btn="DpadDown">&#9660;</button>
+            </div>
+        </div>
+
+        <!-- Center: nothing (meta buttons moved to shoulder strip) -->
+        <div id="center-col"></div>
+
+        <!-- Right side: Face buttons + Right stick -->
+        <div class="side" id="right-side">
+            <div id="face-diamond">
+                <button class="btn btn-face btn-y" data-btn="Y" id="btn-Y">Y</button>
+                <button class="btn btn-face btn-x" data-btn="X" id="btn-X">X</button>
+                <button class="btn btn-face btn-b" data-btn="B" id="btn-B">B</button>
+                <button class="btn btn-face btn-a" data-btn="A" id="btn-A">A</button>
+            </div>
+            <div class="stick-zone" id="rstick-zone">
+                <div class="stick-nub" id="rstick-nub"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<a id="back-btn" href="/" onclick="fetch('/stop')">&#9632; stop &amp; menu</a>
+
+<script>
+    // ── Per-console button labels ──────────────────────────────────────────
+    const LABELS = {
+        ps1:       { Y: '△', X: '□', B: '○', A: '✕', L1:'L1', R1:'R1', L2:'L2', R2:'R2', Select:'Select', Start:'Start' },
+        psp:       { Y: '△', X: '□', B: '○', A: '✕', L1:'L',  R1:'R',  L2:'L2', R2:'R2', Select:'Select', Start:'Start' },
+        dreamcast: { Y: 'Y', X: 'X', B: 'B', A: 'A',  L1:'L',  R1:'R',  L2:'L2', R2:'R2', Select:'—',     Start:'Start' },
+        gba:       { Y: 'Y', X: 'X', B: 'B', A: 'A',  L1:'L',  R1:'R',  L2:'—',  R2:'—',  Select:'Select', Start:'Start' },
+        n64:       { Y: 'C↑', X: 'C↓', B: 'B', A: 'A', L1:'L', R1:'R', L2:'Z',  R2:'—',  Select:'—',      Start:'Start' },
+        gamecube:  { Y: 'Y', X: 'X', B: 'B', A: 'A',  L1:'L',  R1:'R',  L2:'Z',  R2:'—',  Select:'—',     Start:'Start' },
+        nds:       { Y: 'Y', X: 'X', B: 'B', A: 'A',  L1:'L',  R1:'R',  L2:'—',  R2:'—',  Select:'Select', Start:'Start' },
+    };
+
+    const console_id = new URLSearchParams(window.location.search).get('console') || 'ps1';
+    const labels = LABELS[console_id] || LABELS['ps1'];
+
+    Object.entries(labels).forEach(([btn, label]) => {
+        const el = document.getElementById('btn-' + btn);
+        if (el) el.textContent = label;
+    });
+
+    // ── Input sending ──────────────────────────────────────────────────────
+    function sendInput(button, state, x = 0, y = 0) {
+        fetch('/input', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ button, state, x, y }),
+        }).catch(() => {});
+    }
+
+    // ── Regular buttons ────────────────────────────────────────────────────
+    document.querySelectorAll('.btn[data-btn]').forEach(el => {
+        const btn = el.dataset.btn;
+
+        el.addEventListener('touchstart', ev => {
+            ev.preventDefault();
+            el.classList.add('pressed');
+            if (navigator.vibrate) navigator.vibrate(20);
+            sendInput(btn, 1);
+        }, { passive: false });
+
+        const release = ev => {
+            ev.preventDefault();
+            el.classList.remove('pressed');
+            sendInput(btn, 0);
+        };
+        el.addEventListener('touchend',    release, { passive: false });
+        el.addEventListener('touchcancel', release, { passive: false });
+    });
+
+    // Prevent stray scroll on the full page
+    document.addEventListener('touchmove', ev => ev.preventDefault(), { passive: false });
+
+    // ── Analog stick helper ────────────────────────────────────────────────
+    function setupStick(zoneEl, nubEl, buttonName) {
+        let trackId = null;
+
+        zoneEl.addEventListener('touchstart', ev => {
+            ev.preventDefault();
+            if (trackId !== null) return;
+            const t = ev.changedTouches[0];
+            trackId = t.identifier;
+            zoneEl.classList.add('active');
+            sendInput(buttonName, 1, 0, 0);
+        }, { passive: false });
+
+        zoneEl.addEventListener('touchmove', ev => {
+            ev.preventDefault();
+            if (trackId === null) return;
+
+            let touch = null;
+            for (let t of ev.changedTouches) {
+                if (t.identifier === trackId) { touch = t; break; }
+            }
+            if (!touch) return;
+
+            const rect = zoneEl.getBoundingClientRect();
+            const cx = rect.left + rect.width  / 2;
+            const cy = rect.top  + rect.height / 2;
+            const radius = rect.width / 2;
+
+            let dx = touch.clientX - cx;
+            let dy = touch.clientY - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist > radius) {
+                dx = (dx / dist) * radius;
+                dy = (dy / dist) * radius;
+            }
+
+            // Move nub visually (nub is centred via top/left 50% + translate)
+            nubEl.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+
+            const nx = dx / radius;
+            const ny = dy / radius;
+            sendInput(buttonName, 1, nx, ny);
+        }, { passive: false });
+
+        const releaseStick = ev => {
+            ev.preventDefault();
+            for (let t of ev.changedTouches) {
+                if (t.identifier === trackId) {
+                    trackId = null;
+                    break;
+                }
+            }
+            if (trackId !== null) return;
+            zoneEl.classList.remove('active');
+            nubEl.style.transform = 'translate(-50%, -50%)';
+            sendInput(buttonName, 0, 0, 0);
+        };
+
+        zoneEl.addEventListener('touchend',    releaseStick, { passive: false });
+        zoneEl.addEventListener('touchcancel', releaseStick, { passive: false });
+    }
+
+    setupStick(
+        document.getElementById('lstick-zone'),
+        document.getElementById('lstick-nub'),
+        'LStick'
+    );
+    setupStick(
+        document.getElementById('rstick-zone'),
+        document.getElementById('rstick-nub'),
+        'RStick'
+    );
+
+    // ── Wake lock (keep screen on while playing) ───────────────────────────
+    if ('wakeLock' in navigator) {
+        navigator.wakeLock.request('screen').catch(() => {});
+    }
+</script>
+</body>
+</html>

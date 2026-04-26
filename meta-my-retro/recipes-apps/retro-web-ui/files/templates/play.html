@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Playing - Retro Remote</title>
+</head>
+<body>
+    <a href="/" class="back-link" onclick="fetch('/stop')">&larr; Stop &amp; Back to Menu</a>
+
+    <h1>Game Running</h1>
+    <p class="play-subtitle">How do you want to play?</p>
+
+    <div class="play-options">
+        <a href="/controller?console={{ emu_id }}" class="play-card play-card--phone">
+            <div class="play-card__icon">&#128241;</div>
+            <div class="play-card__label">Phone Controller</div>
+            <div class="play-card__sub">Use this screen as a gamepad</div>
+        </a>
+
+        <div class="play-card play-card--duo" onclick="pairController(this)">
+            <div class="play-card__icon">&#127918;</div>
+            <div class="play-card__label">Pair DualSense</div>
+            <div class="play-card__sub">Connect your PS5 controller</div>
+        </div>
+    </div>
+
+    <script>
+        function pairController(el) {
+            el.querySelector('.play-card__sub').textContent = 'Pairing… hold PS + Create on controller';
+            el.style.borderColor = '#00FFFF';
+            fetch('/pair').catch(() => {});
+        }
+    </script>
+</body>
+</html>

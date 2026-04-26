@@ -1,6 +1,8 @@
-from flask import Flask, render_template
-import subprocess
+from flask import Flask, render_template, request
+import json
 import os
+import socket
+import subprocess
 
 template_dir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__, template_folder=os.path.join(template_dir, 'templates'))
@@ -99,17 +101,46 @@ def select_game(emu_id):
 @app.route('/launch/<game_id>')
 def launch(game_id):
     cmd_to_run = None
+    emu_id = None
     for system in GAMES:
         for game in GAMES[system]:
             if game["id"] == game_id:
                 cmd_to_run = game["cmd"]
+                emu_id = system
                 break
-    
+
     if cmd_to_run:
-        subprocess.Popen(f"{cmd_to_run}", shell=True) 
-        return f"<h1>LAUNCHING {game_id}</h1><script>setTimeout(()=>{{window.location.href='/'}}, 2000)</script>"
-    
+        subprocess.Popen(f"{cmd_to_run}", shell=True)
+        return (
+            f"<h1>LAUNCHING {game_id}</h1>"
+            f"<script>setTimeout(()=>{{window.location.href='/play/{emu_id}'}}, 1500)</script>"
+        )
+
     return "Game Not Found", 404
+
+
+@app.route('/play/<emu_id>')
+def play(emu_id):
+    return render_template('play.html', emu_id=emu_id)
+
+
+@app.route('/controller')
+def controller():
+    return render_template('controller.html')
+
+
+@app.route('/input', methods=['POST'])
+def pad_input():
+    data = request.get_json(silent=True) or {}
+    try:
+        sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock.settimeout(0.1)
+        sock.connect('/tmp/retro-pad.sock')
+        sock.sendall(json.dumps(data).encode('utf-8'))
+        sock.close()
+    except Exception:
+        pass
+    return '', 204
 
 @app.route('/stop')
 def stop():
