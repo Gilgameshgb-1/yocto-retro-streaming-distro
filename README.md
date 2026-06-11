@@ -37,6 +37,18 @@ pipx install kas
 kas build kas-project.yml
 ```
 
+## Phone controller support
+
+You have the option when playing emulator games to instead of the physical controller you use a simulated controller through your phone. The options and how the controller looks are given below.
+
+<p align="center">
+<img src="readme-assets/controller.png" width="50%" />
+ </p>
+
+<p align="center">
+ <img src="readme-assets/ControllerSelection.png" width="33%">
+</p>
+
 ## Movie streaming
 
 The streaming interface is powered by [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer). It lets you search, download, and play movies from your phone, video plays directly on the TV connected to the Pi via HDMI.
