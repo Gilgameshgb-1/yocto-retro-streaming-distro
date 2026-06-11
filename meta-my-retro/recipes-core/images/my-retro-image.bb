@@ -54,4 +54,6 @@ IMAGE_INSTALL += " \
     libsdl2 \
     libgbm \
     icu \
+    netbird \
+    kernel-module-wireguard \
 "
