@@ -49,6 +49,26 @@ You have the option when playing emulator games to instead of the physical contr
  <img src="readme-assets/ControllerSelection.png" width="33%">
 </p>
 
+## VPN support
+VPN for cgnat bypass (since my router does not have a static IP) is implemented using the free version of NetBird, allowing the user to access the device on the home network from anywhere via the phone or desktop app.
+
+This is a TODO aswell as the names aren't resolved properly and you have to use the adress.
+
+<p align="center">
+<img src="readme-assets/VPN.jpeg" width="33%" />
+<img src="readme-assets/VPN2.jpeg" width="33%">
+ </p>
+
+## System monitor integration
+
+There is a system monitor as well integrated from the repository I also worked on: https://github.com/Gilgameshgb-1/retro-system-monitor-rpi5
+
+This gives us the option to monitor some parameters, its built originally for my linux locally, but adapted for rpi5 and is cross-compiled together with the webserver which receives WS commands to show important info. Available through `monitor.pi` like the other webservers.
+
+<p align="center">
+<img src="readme-assets/systemmonitor.png" width="33%" />
+ </p>
+
 ## Movie streaming
 
 The streaming interface is powered by [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer). It lets you search, download, and play movies from your phone, video plays directly on the TV connected to the Pi via HDMI.
