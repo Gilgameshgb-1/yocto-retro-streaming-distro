@@ -7,7 +7,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-3-Clause;md5=550794465ba0ec
 PV = "0.71.2"
 SRC_URI = "https://github.com/netbirdio/netbird/releases/download/v${PV}/netbird_${PV}_linux_arm64.tar.gz \
            file://netbird.service \
-           file://netbird-setup.sh"
+           file://netbird-setup.sh \
+           file://netbird-token.txt"
 
 SRC_URI[sha256sum] = "0eeb07e4ce6d5e8c472228e795d2276c90ae642e7bf58b44adeb246d30fcd9c1"
 
@@ -28,6 +29,11 @@ do_install() {
     install -m 0644 ${S}/netbird.service ${D}${systemd_unitdir}/system/
 
     install -m 0755 ${S}/netbird-setup.sh ${D}${bindir}/netbird-setup.sh
+
+    install -d ${D}${sysconfdir}
+    install -m 0600 ${S}/netbird-token.txt ${D}${sysconfdir}/netbird-token
 }
 
-FILES:${PN} += "${systemd_unitdir}/system/netbird.service ${bindir}/netbird-setup.sh"
+FILES:${PN} += "${systemd_unitdir}/system/netbird.service \
+                ${bindir}/netbird-setup.sh \
+                ${sysconfdir}/netbird-token"

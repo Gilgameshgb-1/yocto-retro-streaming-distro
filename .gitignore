@@ -30,6 +30,9 @@ meta-my-retro/ps1-bios/files/*.bin
 .vscode
 .vscode-server/
 
+#Ignore netbird token
+**/netbird-token.txt
+
 #Ignore CLAUDE, history and "skills"
 CLAUDE.md
 .claude/

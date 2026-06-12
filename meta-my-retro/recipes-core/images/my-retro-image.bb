@@ -56,4 +56,5 @@ IMAGE_INSTALL += " \
     icu \
     netbird \
     kernel-module-wireguard \
+    retro-system-monitor \
 "

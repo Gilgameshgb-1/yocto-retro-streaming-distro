@@ -1,0 +1,15 @@
+[Unit]
+Description=Retro System Monitor - Flask WebSocket Broker
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/usr/share/retro-system-monitor/webserver
+Environment=FLASK_HOST=0.0.0.0
+Environment=FLASK_PORT=5002
+ExecStart=/usr/bin/python3 /usr/share/retro-system-monitor/webserver/app.py
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
