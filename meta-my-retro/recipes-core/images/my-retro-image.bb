@@ -48,6 +48,7 @@ IMAGE_INSTALL += " \
     python3-libtorrent-rasterbar \
     movies-storage-init \
     setup-nvme \
+    nvme-fan \
     fontconfig \
     ttf-dejavu-sans \
     box64 \
@@ -57,4 +58,5 @@ IMAGE_INSTALL += " \
     netbird \
     kernel-module-wireguard \
     retro-system-monitor \
+    anime-stream \
 "

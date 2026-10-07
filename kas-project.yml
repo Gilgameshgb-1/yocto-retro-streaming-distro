@@ -74,6 +74,21 @@ local_conf_header:
         dtparam=krnbt=on \n \
         "
 
+    # NVMe HAT: run the external PCIe link at Gen 1. At the default Gen 2 the
+    # SSD dropped off the bus under sustained writes (formatting, big
+    # downloads); at Gen 1 it is stable and still writes ~185 MB/s.
+    # Fan: start at 35 C instead of 50 C so it is always gently on. The
+    # nvme-fan service additionally speeds it up when the SSD gets hot.
+    # Written flush-left on purpose (no leading spaces in config.txt).
+    RPI_EXTRA_CONFIG:append = "\ndtparam=pciex1_gen=1\ndtparam=fan_temp0=35000\ndtparam=fan_temp0_speed=90\n"
+
+    # 4K HEVC: the hardware decoder's frames (~16.6 MB each at 4K 10-bit) come
+    # out of CMA, and the 64 MB default runs out after two frames. 512 MB is
+    # what LibreELEC uses on the Pi 5. Set it through the vc4 overlay, never
+    # with cma= on the kernel cmdline: that left the firmware mailbox without
+    # DMA memory and stopped the decoder from probing at all.
+    VC4DTBO = "vc4-kms-v3d,cma-512"
+
     # Systemd initialization
     DISTRO_FEATURES:append = " systemd"
     VIRTUAL-RUNTIME_init_manager = "systemd"

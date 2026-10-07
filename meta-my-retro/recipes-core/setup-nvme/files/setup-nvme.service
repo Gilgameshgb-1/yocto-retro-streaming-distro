@@ -1,6 +1,10 @@
 [Unit]
 Description=Initialise NVMe SSD storage (/games and /movies)
 After=local-fs.target
+# Mount the SSD before the apps that store media on it start up.
+Before=anime-stream.service huberry-stream.service
+# Runs on the first boot of a freshly flashed card. The script keeps any
+# existing games/movies filesystems, so a reflash no longer wipes the SSD.
 ConditionPathExists=!/var/lib/nvme-initialized
 
 [Service]

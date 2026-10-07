@@ -8,6 +8,7 @@ A custom Linux image for the Raspberry Pi 5 that turns it into a self-contained 
 
 - **Retro gaming** - Launch games across multiple classic consoles directly from your phone's browser
 - **Movie streaming** - Download and play movies to the TV via a phone-friendly web remote, or stream directly to your phone's browser (see [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer))
+- **Anime library** - Search nyaa.si, download whole seasons, and watch them as a proper episode list with per-episode progress
 - **Controller pairing** - Pair your PS5 DualSense wirelessly with one tap from the web UI
 - **Zero setup** - Flash the image, power on, connect to the Pi's WiFi hotspot, open your browser
 
@@ -18,6 +19,7 @@ Flash the image to an SD card and power on the Pi. On your phone:
 1. Connect to the Pi's WiFi hotspot
 2. Open `http://retro.pi` for the game launcher
 3. Open `http://stream.pi` for the movie player
+4. Open `http://anime.pi` for the anime library
 
 TODO: This left menu will be redesigned in the same manner as the [webserver-videoplayer](https://github.com/Gilgameshgb-1/webserver-videoplayer) player which can be seen on the right
 
@@ -79,6 +81,40 @@ In addition to playing on the TV, you can stream any movie directly to your phon
 
 <p align="center">
 <img src="readme-assets/StreamToPhone.jpeg" width="33%">
+</p>
+
+## Anime library
+
+Movies are one folder, one film. Anime is not - a single torrent is usually a
+whole cour - so anime gets its own app with a proper **series -> season ->
+episode** structure, per-episode watch state, and a resume button that jumps to
+the first unfinished episode. Available at `anime.pi`.
+
+Search runs against [nyaa.si](https://nyaa.si) through its RSS feed, so magnet
+links are built locally from the info hash and no `.torrent` files are fetched.
+Cover art, synopses and scores come from [AniList](https://anilist.co), cached
+to disk so the gallery still renders when the Pi is serving its own hotspot with
+no uplink.
+
+Two things it does that the movie player does not:
+
+- **Subtitle and audio menus are read from the file at runtime.** Anime ships
+  soft ASS subtitles and dual Japanese/English audio muxed inside the mkv, so
+  the track list is pulled from mpv rather than hardcoded.
+- **4K releases are checked against what the Pi 5 can actually decode.** The Pi 5
+  has a hardware HEVC decoder but no AV1 decoder and no H.264 one, so search
+  results warn before you spend 20 GB on something that will not play.
+
+Both apps drive the same mpv instance on the same IPC socket, on purpose: only
+one process can own the TV framebuffer, and only one thing plays on the TV at a
+time.
+
+Source and developer notes live in [`anime-stream/`](anime-stream/README.md).
+
+<p align="center">
+<img src="readme-assets/anime1.jpeg" width="30%" />
+<img src="readme-assets/anime2.jpeg" width="30%" />
+<img src="readme-assets/anime3.jpeg" width="30%">
 </p>
 
 ## Legal Disclaimer

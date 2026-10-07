@@ -1,0 +1,10 @@
+Flask>=3.0
+requests>=2.31
+libtorrent>=2.0
+
+# libtorrent ships a manylinux wheel for CPython 3.12, so pip handles it on
+# Ubuntu 24.04 with no sudo. If your platform has no wheel, fall back to the
+# distro package and a venv that can see it:
+#     sudo apt install python3-libtorrent
+#     python3 -m venv --system-site-packages .venv
+# Without libtorrent, search / library / playback work and downloading is off.

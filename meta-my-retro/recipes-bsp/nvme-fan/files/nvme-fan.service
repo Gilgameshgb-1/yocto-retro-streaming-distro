@@ -1,0 +1,16 @@
+[Unit]
+Description=Speed the fan up when the NVMe SSD is hot
+After=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nvme-fan.sh
+# Never leave the kernel's own fan control switched off.
+ExecStopPost=/usr/bin/nvme-fan.sh --release
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

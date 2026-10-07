@@ -1,0 +1,34 @@
+[Unit]
+Description=Anime library, search and player
+# Needs the network up so the listening socket binds, and nyaa/AniList lookups
+# resolve. After setup-nvme so /movies is mounted before the library is scanned
+# — not a hard requirement, so the UI still comes up on a box with no NVMe.
+After=network-online.target setup-nvme.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/anime-stream
+Environment=FLASK_HOST=0.0.0.0
+Environment=FLASK_PORT=5003
+# Selects the Pi playback path: mpv on DRM/KMS via huberry-stream's
+# wserVideoPlayer, sharing /tmp/mpv-socket with the movie app.
+Environment=ANIME_TARGET=pi
+# Media root. Change this one line to move anime onto its own partition.
+Environment=ANIME_DIR=/movies/anime
+# Refuse to download unless the SSD is really mounted here. Without it, a
+# missing SSD leaves /movies as a folder on the SD card and fills the card.
+Environment=ANIME_REQUIRE_MOUNT=/movies
+Environment=ANIME_STATE_DIR=/home/root/.anime-stream
+# Warn in the UI above this download size; nyaa serves 200 GB BD remuxes.
+Environment=ANIME_WARN_SIZE_GB=25
+ExecStart=/usr/bin/python3 /opt/anime-stream/app.py
+Restart=on-failure
+RestartSec=5
+User=root
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

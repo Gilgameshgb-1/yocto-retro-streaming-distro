@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#012c3d">
+    <title>Anime — My Retro OS</title>
+    <link rel="preload" href="/static/fonts/lexend.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body data-downloads-enabled="{{ 'true' if downloads_enabled else 'false' }}">
+
+<!-- Reused icons. <use href="#i-play"/> keeps the markup below readable. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4.2" height="14" rx="1.4" fill="currentColor"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.4" fill="currentColor"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15.5 6.2v11.6a.8.8 0 0 1-1.25.66L6.9 12.66a.8.8 0 0 1 0-1.32l7.35-5.8a.8.8 0 0 1 1.25.66z" fill="currentColor"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2 8.8-9.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="18" cy="12" r="1.8" fill="currentColor"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.2l2.6 5.6 6.1.7-4.5 4.2 1.2 6.1L12 16.8l-5.4 3 1.2-6.1-4.5-4.2 6.1-.7z" fill="currentColor"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 4.5v15M18.5 5L9.5 12l9 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M18 4.5v15M5.5 5l9 7-9 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="3" width="11" height="18" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10.5 18h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-tv" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 20.5h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-back10" viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 1-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14.5 1.5L12 4l2.5 2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="12.6" y="15.3" text-anchor="middle" font-size="7.5" font-weight="700" fill="currentColor">10</text></symbol>
+    <symbol id="i-fwd10" viewBox="0 0 24 24"><path d="M12 4a8 8 0 1 0 8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.5 1.5L12 4l-2.5 2.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="11.4" y="15.3" text-anchor="middle" font-size="7.5" font-weight="700" fill="currentColor">10</text></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11m0-11l-11 11" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- ═══════════════════════════ LIBRARY ═══════════════════════════ -->
+<section id="library-view" class="view">
+    <div class="scroll-area">
+        <label class="search-bar">
+            <span class="brand-dot" aria-hidden="true"><svg><use href="#i-play"/></svg></span>
+            <input type="search" id="library-filter" placeholder="Search your library…"
+                   autocomplete="off" spellcheck="false">
+            <svg class="search-icon" aria-hidden="true"><use href="#i-search"/></svg>
+        </label>
+
+        <div class="pill-row" id="status-filter" role="tablist">
+            <button class="pill active" data-action="status-filter" data-status="all">All</button>
+            <button class="pill" data-action="status-filter" data-status="watching">Watching</button>
+            <button class="pill" data-action="status-filter" data-status="new">New</button>
+            <button class="pill" data-action="status-filter" data-status="done">Done</button>
+        </div>
+
+        <div id="continue-slot"></div>
+
+        <div class="section-head">
+            <h2>Your library</h2>
+            <button class="text-btn" data-action="cycle-sort" id="sort-label">Recently added</button>
+        </div>
+
+        <div class="grid" id="series-grid"></div>
+
+        <p id="library-empty" class="empty-state" hidden></p>
+    </div>
+
+    <footer class="action-bar">
+        <button class="wide-btn raised" data-action="open-downloads">
+            <svg><use href="#i-download"/></svg> Download anime
+        </button>
+    </footer>
+</section>
+
+<!-- ═══════════════════════════ SERIES DETAIL ═══════════════════════════ -->
+<section id="series-view" class="view">
+    <nav class="nav">
+        <button class="sq-btn" data-action="go-library" aria-label="Back"><svg><use href="#i-back"/></svg></button>
+        <div class="nav-title"><b id="series-heading">Series</b></div>
+        <button class="sq-btn plain" data-action="series-menu" aria-label="More"><svg><use href="#i-dots"/></svg></button>
+    </nav>
+
+    <div class="scroll-area">
+        <div class="hero" id="series-hero"></div>
+        <div id="series-cta"></div>
+
+        <div class="section-head">
+            <h2>Episodes</h2>
+            <span class="section-note" id="watched-note"></span>
+        </div>
+        <div class="pill-row" id="season-tabs"></div>
+        <div class="episode-list" id="episode-list"></div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ DOWNLOAD / SEARCH ═══════════════════════════ -->
+<section id="download-view" class="view">
+    <nav class="nav">
+        <button class="sq-btn" data-action="close-downloads" aria-label="Back"><svg><use href="#i-back"/></svg></button>
+        <div class="nav-title"><b>Download anime</b></div>
+        <span class="nav-spacer"></span>
+    </nav>
+
+    <div class="scroll-area">
+        <form class="search-bar tall" id="nyaa-form">
+            <input type="search" id="nyaa-query" placeholder="e.g. frieren, dandadan…"
+                   autocomplete="off" spellcheck="false" enterkeyhint="search">
+            <button class="round-btn coral" type="submit" aria-label="Search nyaa"><svg><use href="#i-search"/></svg></button>
+        </form>
+
+        <div class="panel filters">
+            <div class="filter-group" data-filter="sort">
+                <span class="label">Sort</span>
+                <div class="pill-wrap">
+                    <button class="pill active" data-value="seeders">Most seeders</button>
+                    <button class="pill" data-value="newest">Newest</button>
+                    <button class="pill" data-value="smallest">Smallest</button>
+                    <button class="pill" data-value="largest">Largest</button>
+                </div>
+            </div>
+            <div class="filter-group" data-filter="resolution">
+                <span class="label">Quality</span>
+                <div class="pill-wrap">
+                    <button class="pill active" data-value="">Any</button>
+                    <button class="pill" data-value="1080p">1080p</button>
+                    <button class="pill" data-value="2160p">4K</button>
+                    <button class="pill" data-value="720p">720p</button>
+                </div>
+            </div>
+            <div class="filter-group" data-filter="batch">
+                <span class="label">Kind</span>
+                <div class="pill-wrap">
+                    <button class="pill active" data-value="any">Any</button>
+                    <button class="pill" data-value="none">Single episode</button>
+                    <button class="pill" data-value="only">Batch / season</button>
+                </div>
+            </div>
+            <div class="filter-pair">
+                <div class="filter-group" data-filter="trusted">
+                    <span class="label">Uploader</span>
+                    <div class="pill-wrap">
+                        <button class="pill active" data-value="">Anyone</button>
+                        <button class="pill" data-value="1">Trusted</button>
+                    </div>
+                </div>
+                <div class="filter-group" data-filter="min_gb">
+                    <span class="label">Min size</span>
+                    <div class="pill-wrap">
+                        <button class="pill active" data-value="">Any</button>
+                        <button class="pill" data-value="10">10 GB</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p id="search-meta" class="search-meta"></p>
+        <div id="search-results" class="results"></div>
+
+        <div class="section-head">
+            <h2>Active downloads</h2>
+            <button class="text-btn" data-action="clear-finished">Clear finished</button>
+        </div>
+        <div id="downloads-list" class="dl-list"></div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ TV REMOTE ═══════════════════════════ -->
+<section id="remote-view" class="view">
+    <nav class="nav">
+        <button class="sq-btn" data-action="close-remote" aria-label="Back"><svg><use href="#i-back"/></svg></button>
+        <div class="nav-title">
+            <b id="remote-title">Playing</b>
+            <small id="remote-episode"></small>
+        </div>
+        <button class="sq-btn cc-btn" id="cc-btn" data-action="toggle-tracks" aria-label="Audio and subtitles">CC</button>
+    </nav>
+
+    <div class="scroll-area remote-body">
+        <div id="track-panel" class="panel track-panel" hidden>
+            <span class="label">Subtitles</span>
+            <div id="sub-tracks" class="pill-wrap"></div>
+            <span class="label">Audio</span>
+            <div id="audio-tracks" class="pill-wrap"></div>
+        </div>
+
+        <div class="remote-poster" id="remote-poster"></div>
+        <p id="remote-meta" class="remote-meta"></p>
+
+        <div class="seek" id="seek">
+            <div class="seek-track"><div class="seek-fill" id="seek-fill"></div></div>
+            <div class="seek-thumb" id="seek-thumb"></div>
+        </div>
+        <div class="time-row">
+            <span id="remote-time">0:00</span>
+            <span id="remote-duration">--:--</span>
+        </div>
+
+        <div class="transport">
+            <button class="icon-btn" data-action="prev-episode" aria-label="Previous episode"><svg><use href="#i-prev"/></svg></button>
+            <button class="skip-btn" data-action="cmd" data-cmd="backward" aria-label="Back 10 seconds"><svg><use href="#i-back10"/></svg></button>
+            <button class="play-big" data-action="play-pause" aria-label="Play or pause">
+                <svg id="play-pause-icon"><use href="#i-pause"/></svg>
+            </button>
+            <button class="skip-btn" data-action="cmd" data-cmd="forward" aria-label="Forward 10 seconds"><svg><use href="#i-fwd10"/></svg></button>
+            <button class="icon-btn" data-action="next-episode" aria-label="Next episode"><svg><use href="#i-next"/></svg></button>
+        </div>
+
+        <button class="wide-btn coral" data-action="cmd" data-cmd="skip-85">
+            Skip opening <span class="chip-badge">+85s</span>
+        </button>
+
+        <div class="btn-pair">
+            <button class="wide-btn raised" data-action="stop-playback">Stop &amp; save</button>
+            <button class="wide-btn danger" data-action="quit-player">Close player</button>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ PHONE PLAYER ═══════════════════════════ -->
+<section id="stream-view" class="view">
+    <nav class="nav">
+        <button class="sq-btn" data-action="close-stream" aria-label="Back"><svg><use href="#i-back"/></svg></button>
+        <div class="nav-title">
+            <b id="stream-title">Streaming</b>
+            <small id="stream-episode"></small>
+        </div>
+        <span class="nav-spacer"></span>
+    </nav>
+    <div class="scroll-area">
+        <video id="stream-player" controls playsinline preload="metadata"></video>
+        <p id="stream-note" class="note"></p>
+    </div>
+</section>
+
+<!-- ═══════════════════════════ ACTION SHEET ═══════════════════════════ -->
+<div id="sheet" class="overlay sheet-overlay" hidden data-action="sheet-dismiss">
+    <div class="sheet" role="dialog" aria-modal="true">
+        <div class="sheet-grip"></div>
+        <p class="sheet-title" id="sheet-title"></p>
+        <p class="sheet-sub" id="sheet-sub"></p>
+        <div id="sheet-actions" class="sheet-actions"></div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════ MODAL ═══════════════════════════ -->
+<div id="modal" class="overlay" hidden>
+    <div class="modal-box panel" role="dialog" aria-modal="true">
+        <p class="modal-title" id="modal-title"></p>
+        <p class="modal-msg" id="modal-msg"></p>
+        <div id="modal-input-row" class="modal-input-row" hidden>
+            <label for="modal-input" class="label">Save into folder</label>
+            <input type="text" id="modal-input" class="field" autocomplete="off" spellcheck="false">
+            <div id="modal-suggestions" class="pill-wrap"></div>
+        </div>
+        <label id="modal-check-row" class="modal-check" hidden>
+            <input type="checkbox" id="modal-check"> <span id="modal-check-label"></span>
+        </label>
+        <div class="btn-pair">
+            <button class="wide-btn raised" data-action="modal-cancel">Cancel</button>
+            <button class="wide-btn coral" id="modal-confirm">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
+<script id="boot-data" type="application/json">{{ series | tojson }}</script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

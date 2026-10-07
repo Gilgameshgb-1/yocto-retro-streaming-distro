@@ -1,0 +1,9 @@
+# Local dev environment
+/.venv/
+__pycache__/
+*.pyc
+
+# Runtime data: downloaded episodes, watch progress, cached AniList artwork.
+# On the Pi these live under /movies/anime and /home/root/.anime-stream.
+/anime-library/
+/.state/
